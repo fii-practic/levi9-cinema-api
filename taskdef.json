@@ -1,0 +1,25 @@
+{
+    "taskRoleArn": "arn:aws:iam::617129651895:role/levi9-cinema-api-ecs-task-execution-role",
+    "executionRoleArn": "arn:aws:iam::617129651895:role/levi9-cinema-api-ecs-task-role",
+    "containerDefinitions": [
+        {
+            "name": "levi9-cinema-api",
+            "image": "<IMAGE1_NAME>",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "containerPort": 80
+                }
+            ]
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "256",
+    "memory": "512",
+    "family": "levi9-cinema-api"
+}
