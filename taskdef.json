@@ -1,5 +1,4 @@
 {
-    "taskRoleArn": "arn:aws:iam::AWS_ACCOUNT_PLACEHOLDER:role/levi9-cinema-api-ecs-service-role",
     "executionRoleArn": "arn:aws:iam::AWS_ACCOUNT_PLACEHOLDER:role/levi9-cinema-api-ecs-task-role",
     "containerDefinitions": [
         {
