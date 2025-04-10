@@ -9,9 +9,8 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - echo Set REPOSITORY_URI...
-      - IMAGE_REPO_NAME=$(basename `git rev-parse --show-toplevel`)
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/docker-$IMAGE_REPO_NAME
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - COMMIT_HASH=${CODEBUILD_RESOLVED_SOURCE_VERSION:0:7}
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
