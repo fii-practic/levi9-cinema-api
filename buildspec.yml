@@ -12,6 +12,7 @@ phases:
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/docker-$IMAGE_REPO_NAME
       - COMMIT_HASH=${CODEBUILD_RESOLVED_SOURCE_VERSION:0:7}
       - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - sed -i "s/AWS_ACCOUNT_PLACEHOLDER/$AWS_ACCOUNT_ID/g" taskdef.json
   build:
     commands:
       - echo Build started on `date`
@@ -25,7 +26,12 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
+      - echo Verify the replacements...
+      - cat taskdef.json
+      - cat imageDetail.json
+      - cat appspec.yaml
       - echo Build completed on `date`
+
 artifacts:
     files:
       - imageDetail.json

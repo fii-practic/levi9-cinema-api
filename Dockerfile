@@ -19,5 +19,7 @@ RUN dotnet publish "Levi9.Cinema.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# Install curl for healthcheck
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 ENV DOTNET_EnableDiagnostics=0
 ENTRYPOINT ["dotnet", "Levi9.Cinema.Api.dll"]
